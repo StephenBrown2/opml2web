@@ -112,7 +112,7 @@ func main() {
 				<p>
 					<h6>{{ .Title }}</h6>
 					<small>
-						<a target="_blank" href="{{ .HTMLURL }}">HTML</a>
+						<a target="_blank" href="{{ .HTMLURL }}">HTML</a> ·
 						<a target="_blank" href="{{ .XMLURL }}">XML</a>
 					</small>
 				</p>
