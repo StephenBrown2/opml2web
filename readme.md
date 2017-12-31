@@ -15,6 +15,10 @@ opml2web feed.opml > index.html
 open index.html
 ```
 
+#### Example
+
+![Sample](https://user-images.githubusercontent.com/727262/34463348-995ddcca-ee61-11e7-94c5-8918301f72fc.png)
+
 #### License
 
 MIT © [Wayne Ashley Berry](https://wayne.cloud)
