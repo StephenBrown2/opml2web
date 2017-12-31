@@ -2,11 +2,10 @@ package main
 
 import (
 	"encoding/xml"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"os"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
 // Head is...
@@ -52,5 +51,30 @@ func main() {
 	err = xml.Unmarshal(file, &doc)
 	must(err)
 
-	spew.Dump(doc)
+	tmpl := `
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ .Head.Title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+        crossorigin="anonymous">
+</head>
+
+<body>
+
+</body>
+
+</html>
+`
+
+	t, err := template.New("opml").Parse(tmpl)
+	must(err)
+	err = t.Execute(os.Stdout, doc)
+	must(err)
 }
