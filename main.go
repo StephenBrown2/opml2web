@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/xml"
 	"io/ioutil"
+	"log"
+	"os"
 
 	"github.com/davecgh/go-spew/spew"
 )
@@ -34,7 +36,15 @@ func must(err error) {
 }
 
 func main() {
-	file, err := ioutil.ReadFile("./samples/overcast.opml")
+	args := os.Args[1:]
+
+	if len(args) == 0 {
+		log.Fatal("missing required arguments")
+	}
+
+	filename := args[0]
+
+	file, err := ioutil.ReadFile(filename)
 	must(err)
 
 	doc := Document{}
