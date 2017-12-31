@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+	<head>
+		<title>Subscriptions - RSS</title>
+	</head>
+	<body>
+		<outline htmlUrl="https://www.reddit.com/r/Bitcoin/" title="/r/bitcoin" xmlUrl="https://www.reddit.com/r/Bitcoin/.rss" type="rss" text="/r/bitcoin"/>
+		<outline htmlUrl="https://www.reddit.com/r/ethereum/" title="/r/ethereum" xmlUrl="https://www.reddit.com/r/ethereum/.rss" type="rss" text="/r/ethereum"/>
+		<outline htmlUrl="https://www.reddit.com/r/golang/" title="/r/golang" xmlUrl="https://www.reddit.com/r/golang/.rss" type="rss" text="/r/golang"/>
+		<outline htmlUrl="http://pliutau.com/" title="Alex Pliutau" xmlUrl="http://pliutau.com/index.xml" type="rss" text="Alex Pliutau"/>
+		<outline htmlUrl="https://a16z.com" title="Andreessen Horowitz" xmlUrl="https://a16z.com/feed/" type="rss" text="Andreessen Horowitz"/>
+		<outline htmlUrl="https://aws.amazon.com/blogs/aws/" title="AWS News Blog" xmlUrl="https://aws.amazon.com/blogs/aws/feed/" type="rss" text="AWS News Blog"/>
+		<outline htmlUrl="http://www.carryology.com" title="Carryology – Exploring better ways to carry" xmlUrl="http://www.carryology.com/feed/" type="rss" text="Carryology – Exploring better ways to carry"/>
+		<outline htmlUrl="https://blog.cex.io" title="CEX.IO Official Blog" xmlUrl="https://blog.cex.io/feed" type="rss" text="CEX.IO Official Blog"/>
+		<outline htmlUrl="https://blog.chain.com?source=rss----e0008d102434---4" title="Chain - Medium" xmlUrl="https://blog.chain.com/feed" type="rss" text="Chain - Medium"/>
+		<outline htmlUrl="https://www.coindesk.com" title="CoinDesk" xmlUrl="https://www.coindesk.com/feed/" type="rss" text="CoinDesk"/>
+		<outline htmlUrl="https://cryptominded.com" title="Cryptominded" xmlUrl="https://cryptominded.com/feed/" type="rss" text="Cryptominded"/>
+		<outline htmlUrl="https://dave.cheney.net" title="Dave Cheney" xmlUrl="https://dave.cheney.net/feed" type="rss" text="Dave Cheney"/>
+		<outline htmlUrl="https://decentralize.today?source=rss----20c1ce8e8fdc---4" title="Decentralize Today - Medium" xmlUrl="https://decentralize.today/feed" type="rss" text="Decentralize Today - Medium"/>
+		<outline htmlUrl="https://arslan.io/" title="Fatih Arslan" xmlUrl="https://arslan.io/index.xml" type="rss" text="Fatih Arslan"/>
+		<outline htmlUrl="http://cloudplatform.googleblog.com/" title="Google Cloud Platform Blog" xmlUrl="https://cloudplatform.googleblog.com/feeds/posts/default?alt=rss" type="rss" text="Google Cloud Platform Blog"/>
+		<outline htmlUrl="https://news.ycombinator.com/" title="Hacker News" xmlUrl="https://hnrss.org/frontpage" type="rss" text="Hacker News"/>
+		<outline htmlUrl="https://hackernoon.com?source=rss----3a8144eabfe3---4" title="Hacker Noon" xmlUrl="https://hackernoon.com/feed" type="rss" text="Hacker Noon"/>
+		<outline htmlUrl="https://blog.indiefin.com?source=rss----416bcb77aa20---4" title="Indie - Medium" xmlUrl="https://blog.indiefin.com/feed" type="rss" text="Indie - Medium"/>
+		<outline htmlUrl="https://levels.io" title="levels.io" xmlUrl="https://levels.io/feed/" type="rss" text="levels.io"/>
+		<outline htmlUrl="https://blog.minaal.com" title="Minaal Blog" xmlUrl="https://blog.minaal.com/feed/" type="rss" text="Minaal Blog"/>
+		<outline htmlUrl="https://missionworkshop.com/blogs/research-development-field-tests" title="MISSION WORKSHOP - Field Tests" xmlUrl="https://missionworkshop.com/blogs/research-development-field-tests.atom" type="rss" text="MISSION WORKSHOP - Field Tests"/>
+		<outline htmlUrl="https://monzo.com" title="Monzo – It's time for a new kind of bank" xmlUrl="https://monzo.com/feed.xml" type="rss" text="Monzo – It's time for a new kind of bank"/>
+		<outline htmlUrl="https://neovim.io/news" title="Neovim Newsletter" xmlUrl="https://neovim.io/news.xml" type="rss" text="Neovim Newsletter"/>
+		<outline htmlUrl="https://nodejs.org/en/" title="Node.js Blog" xmlUrl="https://nodejs.org/en/feed/blog.xml" type="rss" text="Node.js Blog"/>
+		<outline htmlUrl="https://blog.nomics.com" title="Nomics Blog" xmlUrl="https://blog.nomics.com/feed/" type="rss" text="Nomics Blog"/>
+		<outline htmlUrl="http://journal.peakdesign.com" title="Peak Design’s Posts on Exposure" xmlUrl="https://journal.peakdesign.com/feed.rss" type="rss" text="Peak Design’s Posts on Exposure"/>
+		<outline htmlUrl="https://www.producthunt.com" title="Product Hunt" xmlUrl="https://www.producthunt.com/feed" type="rss" text="Product Hunt"/>
+		<outline htmlUrl="https://reactjs.org" title="React" xmlUrl="https://reactjs.org/feed.xml" type="rss" text="React"/>
+		<outline htmlUrl="https://m.signalvnoise.com?source=rss----668e14b18fb1---4" title="Signal v. Noise" xmlUrl="https://m.signalvnoise.com/feed" type="rss" text="Signal v. Noise"/>
+		<outline htmlUrl="http://www.solidstaterecords.com/news/4766/Norma_Jean_Release_New_Song_Forever_Hurtling_Towards_Andromeda/" title="Solid State Records News Feed" xmlUrl="http://www.solidstaterecords.com/rss/news/" type="rss" text="Solid State Records News Feed"/>
+		<outline htmlUrl="http://stevelosh.com/" title="Steve Losh" xmlUrl="http://feeds2.feedburner.com/stevelosh" type="rss" text="Steve Losh"/>
+		<outline htmlUrl="https://medium.com/@cryptoeconomics?source=rss-9e8431df9692------2" title="Stories by Cryptoeconomics on Medium" xmlUrl="https://medium.com/feed/@cryptoeconomics" type="rss" text="Stories by Cryptoeconomics on Medium"/>
+		<outline htmlUrl="https://blog.coinbase.com?source=rss----c114225aeaf7---4" title="The Coinbase Blog - Medium" xmlUrl="https://blog.coinbase.com/feed" type="rss" text="The Coinbase Blog - Medium"/>
+		<outline htmlUrl="https://medium.com/the-crypto-university?source=rss----5299a557e031---4" title="The Crypto University - Medium" xmlUrl="https://medium.com/feed/the-crypto-university" type="rss" text="The Crypto University - Medium"/>
+		<outline htmlUrl="https://github.com/blog" title="The GitHub Blog" xmlUrl="https://github.com/blog/all.atom" type="rss" text="The GitHub Blog"/>
+		<outline title="The Go Programming Language Blog" xmlUrl="https://blog.golang.org/feed.atom" type="rss" text="The Go Programming Language Blog"/>
+		<outline htmlUrl="https://blog.rust-lang.org/" title="The Rust Programming Language Blog" xmlUrl="https://blog.rust-lang.org/feed.xml" type="rss" text="The Rust Programming Language Blog"/>
+		<outline htmlUrl="https://www.theverge.com/" title="The Verge" xmlUrl="https://www.theverge.com/rss/index.xml" type="rss" text="The Verge"/>
+		<outline htmlUrl="http://culturedcode.com/things/blog/" title="Things Blog" xmlUrl="https://culturedcode.com/things/blog/feed/rss.xml" type="rss" text="Things Blog"/>
+		<outline htmlUrl="https://blog.tombihn.com" title="TOM BIHN Bags Blog" xmlUrl="https://blog.tombihn.com/feed" type="rss" text="TOM BIHN Bags Blog"/>
+		<outline htmlUrl="http://code.visualstudio.com/" title="Visual Studio Code - Code Editing. Redefined." xmlUrl="https://code.visualstudio.com/feed.xml" type="rss" text="Visual Studio Code - Code Editing. Redefined."/>
+		<outline htmlUrl="https://blog.sindresorhus.com?source=rss----bd01b60f8f44---4" title="🦄 Sindre Sorhus’ blog - Medium" xmlUrl="https://blog.sindresorhus.com/feed" type="rss" text="🦄 Sindre Sorhus’ blog - Medium"/>
+	</body>
+</opml>
