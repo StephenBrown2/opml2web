@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"sort"
 	"strings"
@@ -21,17 +22,29 @@ type Outline struct {
 	Title   string `xml:"title,attr"`
 	XMLURL  string `xml:"xmlUrl,attr"`
 	HTMLURL string `xml:"htmlUrl,attr"`
+	Feed    Feed
 }
 
-func (o Outline) String() string {
-	return o.Title
-}
-
-// Document is...
-type Document struct {
+// OPML is...
+type OPML struct {
 	XMLName xml.Name  `xml:"opml"`
 	Head    Head      `xml:"head"`
 	Body    []Outline `xml:"body>outline"`
+}
+
+// Image is...
+type Image struct {
+	URL   string `xml:"url"`
+	Title string `xml:"title"`
+	Link  string `xml:"link"`
+	HREF  string `xml:"href,attr"`
+}
+
+// Feed is...
+type Feed struct {
+	XMLName     xml.Name `xml:"rss"`
+	Description string   `xml:"channel>description"`
+	Image       Image    `xml:"channel>image"`
 }
 
 func must(err error) {
@@ -40,8 +53,10 @@ func must(err error) {
 	}
 }
 
+// By does...
 type By func(o1, o2 *Outline) bool
 
+// Sort does...
 func (by By) Sort(outlines []Outline) {
 	os := &outlineSorter{
 		outlines: outlines,
@@ -81,50 +96,80 @@ func main() {
 	file, err := ioutil.ReadFile(filename)
 	must(err)
 
-	doc := Document{}
-
-	err = xml.Unmarshal(file, &doc)
+	opml := OPML{}
+	err = xml.Unmarshal(file, &opml)
 	must(err)
 
 	title := func(o1, o2 *Outline) bool {
 		return strings.ToLower(o1.Title) < strings.ToLower(o2.Title)
 	}
 
-	By(title).Sort(doc.Body)
+	By(title).Sort(opml.Body)
+
+	for index, outline := range opml.Body {
+		res, err := http.Get(outline.XMLURL)
+		must(err)
+
+		body, err := ioutil.ReadAll(res.Body)
+		must(err)
+		res.Body.Close()
+
+		feed := Feed{}
+		err = xml.Unmarshal(body, &feed)
+		must(err)
+
+		opml.Body[index].Feed = feed
+	}
+
+	// spew.Dump(opml)
 
 	tmpl := `
-<!doctype html>
-<html class="no-js" lang="">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>{{ .Head.Title }}</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-</head>
-<body>
-	<div class="container pt-5 pb-5">
-		<h3>{{ .Head.Title }}</h3>
-		<hr>
-		{{ with .Body }}
-			{{ range . }}
-				<p>
-					<h6>{{ .Title }}</h6>
-					<small>
-						<a target="_blank" href="{{ .HTMLURL }}">HTML</a> ·
-						<a target="_blank" href="{{ .XMLURL }}">XML</a>
-					</small>
-				</p>
+	<!doctype html>
+	<html class="no-js" lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>{{ .Head.Title }}</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+		<style>
+			.truncate {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container pt-5 pb-5">
+			<h3>
+				{{ .Head.Title }}
+			</h3>
+			<hr>
+			{{ with .Body }}
+				{{ range . }}
+					<div class="media">
+						<img width="100" class="img-fluid mr-3" src="{{ .Feed.Image.HREF }}" alt="{{ .Feed.Image.Title }}">
+						<div class="media-body">
+							<h5 class="mt-0">{{ .Title }}</h5>
+							<p>{{ .Feed.Description }}</p>
+							<small class="text-muted">
+								<a target="_blank" href="{{ .HTMLURL }}">Web</a> ·
+								<a target="_blank" href="{{ .XMLURL }}">Feed</a>
+							</small>
+						</div>
+					</div>
+					<br>
+				{{ end }}
 			{{ end }}
-		{{ end }}
-	</div>
-</body>
-</html>
-`
+		</div>
+	</body>
+	</html>
+	`
 
 	t, err := template.New("opml").Parse(tmpl)
 	must(err)
-	err = t.Execute(os.Stdout, doc)
+	err = t.Execute(os.Stdout, opml)
 	must(err)
 }
