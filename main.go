@@ -134,8 +134,6 @@ func main() {
 		opml.Body[index].Feed = feed
 	}
 
-	// spew.Dump(opml)
-
 	tmpl := `
 	<!doctype html>
 	<html class="no-js" lang="">
