@@ -84,6 +84,25 @@ type outlineSorter struct {
 	by       func(o1, o2 *Outline) bool // Closure used in the Less method.
 }
 
+// ParseOPML does...
+func ParseOPML(input []byte) (OPML, error) {
+	opml := OPML{}
+	err := xml.Unmarshal(input, &opml)
+	return opml, err
+}
+
+// ParseFeed does...
+func ParseFeed(input []byte) (Feed, error) {
+	feed := Feed{}
+	err := xml.Unmarshal(input, &feed)
+	return feed, err
+}
+
+// TitleSorter does...
+func TitleSorter(o1, o2 *Outline) bool {
+	return strings.ToLower(o1.Title) < strings.ToLower(o2.Title)
+}
+
 func main() {
 	args := os.Args[1:]
 
@@ -96,15 +115,10 @@ func main() {
 	file, err := ioutil.ReadFile(filename)
 	must(err)
 
-	opml := OPML{}
-	err = xml.Unmarshal(file, &opml)
+	opml, err := ParseOPML(file)
 	must(err)
 
-	title := func(o1, o2 *Outline) bool {
-		return strings.ToLower(o1.Title) < strings.ToLower(o2.Title)
-	}
-
-	By(title).Sort(opml.Body)
+	By(TitleSorter).Sort(opml.Body)
 
 	for index, outline := range opml.Body {
 		res, err := http.Get(outline.XMLURL)
@@ -114,8 +128,7 @@ func main() {
 		must(err)
 		res.Body.Close()
 
-		feed := Feed{}
-		err = xml.Unmarshal(body, &feed)
+		feed, err := ParseFeed(body)
 		must(err)
 
 		opml.Body[index].Feed = feed
