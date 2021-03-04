@@ -42,9 +42,9 @@ type Image struct {
 
 // Feed is...
 type Feed struct {
-	XMLName     xml.Name `xml:"rss"`
-	Description string   `xml:"channel>description"`
-	Image       Image    `xml:"channel>image"`
+	XMLName     xml.Name      `xml:"rss"`
+	Description template.HTML `xml:"channel>description"`
+	Image       Image         `xml:"channel>image"`
 }
 
 func must(err error) {
@@ -88,6 +88,20 @@ type outlineSorter struct {
 func ParseOPML(input []byte) (OPML, error) {
 	opml := OPML{}
 	err := xml.Unmarshal(input, &opml)
+	if err != nil {
+		log.Println(opml)
+	}
+	if len(opml.Body) == 1 {
+		// Some feed exporters (like Pocket Casts) have an extra <outline text="feeds"> element
+		type Feeds struct {
+			Feeds []Outline `xml:"body>outline>outline"`
+		}
+		feeds := Feeds{}
+		err := xml.Unmarshal(input, &feeds)
+		if err == nil {
+			opml.Body = feeds.Feeds
+		}
+	}
 	return opml, err
 }
 
@@ -95,6 +109,9 @@ func ParseOPML(input []byte) (OPML, error) {
 func ParseFeed(input []byte) (Feed, error) {
 	feed := Feed{}
 	err := xml.Unmarshal(input, &feed)
+	if err != nil {
+		log.Println(feed)
+	}
 	return feed, err
 }
 
@@ -119,8 +136,17 @@ func main() {
 	must(err)
 
 	By(TitleSorter).Sort(opml.Body)
-
+	log.Printf("%d feeds to process", len(opml.Body))
 	for index, outline := range opml.Body {
+		title := outline.Title
+		if title == "" {
+			title = outline.Text
+		}
+		if outline.XMLURL == "" {
+			log.Printf("No feed URL for %s\n", title)
+			continue
+		}
+		log.Printf("Get feed %d: %s - %s\n", index+1, title, outline.XMLURL)
 		res, err := http.Get(outline.XMLURL)
 		must(err)
 
@@ -129,7 +155,10 @@ func main() {
 		res.Body.Close()
 
 		feed, err := ParseFeed(body)
-		must(err)
+		if err != nil {
+			log.Println("Error parsing feed. Continuing.")
+			continue
+		}
 
 		opml.Body[index].Feed = feed
 	}
@@ -166,7 +195,9 @@ func main() {
 							<h5 class="mt-0">{{ .Title }}</h5>
 							<p>{{ .Feed.Description }}</p>
 							<small class="text-muted">
-								<a target="_blank" href="{{ .HTMLURL }}">Web</a> ·
+							{{ with .HTMLURL }}
+								<a target="_blank" href="{{ . }}">Web</a> ·
+							{{ end }}
 								<a target="_blank" href="{{ .XMLURL }}">Feed</a>
 							</small>
 						</div>
